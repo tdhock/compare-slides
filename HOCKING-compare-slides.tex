@@ -141,6 +141,42 @@ Note: $y_i=0$ equality pairs are not used!
 \section{Results and conclusions}
 
 \begin{frame}
+  \frametitle{Simulation setup}
+  \begin{itemize}
+    \item Inputs $\mathbf x_i,\mathbf x_i'\in[-3,3]^2$.
+    \item True ranking function $r(\mathbf x)=||\mathbf x||^2_j$ 
+      for $j\in\{1,2,\infty\}$.
+    \item Noisy labels $y_i=t_1[r(\mathbf x'_i)-r(\mathbf x_i)+\epsilon_i]$.
+  \item Threshold function
+$
+  \label{eq:threshold}
+  t_1(x) = 
+  \begin{cases}
+    -1 & \text{ if } x < -1, \\
+    0 & \text{ if } |x| \leq 1, \\
+    1 & \text{ if } x > 1. \\
+  \end{cases}
+$
+\item Noise $\epsilon_i\sim N(0, \sigma)$ with standard deviation
+  $\sigma=1/4$.
+\item Train, validation, and test sets with
+  \begin{itemize}
+    \item same number of training pairs $n$, and
+    \item same proportion of equality pairs $\rho$.
+  \end{itemize}
+\item Fit a $10\times 10$ grid of models to the training
+set:
+\begin{itemize}
+\item Cost parameter $C=10^{-3},\dots,10^3$,
+\item Gaussian kernel width $2^{-7},\dots,2^4$.
+\end{itemize}
+\item Select the model with minimal zero-one loss on the validation set.
+  \end{itemize}
+\end{frame}
+
+\input{sample-level-curves}
+
+\begin{frame}
   \frametitle{Test error lowest for proposed SVMcompare model}
   \begin{minipage}{1.0\linewidth}
     \hskip -0.5cm

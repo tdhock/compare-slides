@@ -1,4 +1,4 @@
-HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex
+HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex
 	rm -f *.aux *.bbl
 	pdflatex HOCKING-compare-slides
 figure-norm-data.tex: figure-norm-data.R tikz.R colors.R
@@ -9,7 +9,7 @@ simulation.samples.RData: simulation.samples.R svmlight.R
 	R --no-save < $<
 figure-simulation-samples.tex: figure-simulation-samples.R simulation.samples.RData tikz.R Nsamp.R colors.R 
 	R --no-save < $<
-figure-norm-level-curves.tex: figure-norm-level-curves.R tikz.R simulation.samples.RData Nsamp.R colors.R
+sample-level-curves.tex: figure-norm-level-curves.R tikz.R simulation.samples.RData colors.R sample-level-curves-template.tex
 	R --no-save < $<
 simulation.RData: simulation.R svmlight.R
 	R --no-save < $<
