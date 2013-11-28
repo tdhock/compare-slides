@@ -1,4 +1,4 @@
-HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex
+HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex
 	rm -f *.aux *.bbl
 	pdflatex HOCKING-compare-slides
 figure-norm-data.tex: figure-norm-data.R tikz.R colors.R
@@ -42,7 +42,7 @@ prefectureList.RData: prefectureList.R sushi.RData
 	R --no-save < $<
 sushi.features.RData: sushi.features.R prefectureList.RData sushi.RData
 	R --no-save < $<
-sushi.pairs.RData: sushi.pairs.R
+sushi.pairs.RData: sushi.pairs.R sushi.RData sushi.features.RData
 	R --no-save < $<
 sushi.proportion.RData: sushi.proportion.R sushi.pairs.RData svmlight.R
 	R --no-save < $<
