@@ -1,6 +1,8 @@
-HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex
+HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex
 	rm -f *.aux *.bbl
 	pdflatex HOCKING-compare-slides
+proportion-level-curves.tex: figure-proportion-level-curves.R tikz.R colors.R simulation.proportion.RData proportion-level-curves-template.tex
+	R --no-save < $<
 figure-norm-data.tex: figure-norm-data.R tikz.R colors.R
 	R --no-save < $<
 figure-hard-margin.tex: figure-hard-margin.R tikz.R colors.R
