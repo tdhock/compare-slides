@@ -1,4 +1,4 @@
-HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex
+HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex figure-sushi.tex
 	rm -f *.aux *.bbl
 	pdflatex HOCKING-compare-slides
 proportion-level-curves.tex: figure-proportion-level-curves.R tikz.R colors.R simulation.proportion.RData proportion-level-curves-template.tex
@@ -51,4 +51,6 @@ sushi.proportion.RData: sushi.proportion.R sushi.pairs.RData svmlight.R
 sushi.roc.RData: sushi.roc.R sushi.proportion.RData
 	R --no-save < $<
 sushi.samples.RData: sushi.samples.R svmlight.R sushi.pairs.RData
+	R --no-save < $<
+figure-sushi.tex: figure-sushi.R sushi.roc.RData sushi.samples.RData tikz.R colors.R
 	R --no-save < $<

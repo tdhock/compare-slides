@@ -196,6 +196,33 @@ set:
 \end{frame}
 
 \begin{frame}
+  \frametitle{Sushi data of Kamishima et al.}
+  \begin{itemize}
+  \item  \url{http://www.kamishima.net/sushi/}
+  \item 100 different sushis rated by 5000 different people.
+  \item Each person rated 10 sushis on a 5 point scale. 
+  \item Convert 10 ratings to 5 preference pairs.
+  \item 17,832 equality $y_i=0$ pairs and
+  \item 7,168 inequality $y_i\in\{-1,1\}$ pairs.
+  \item Feature pairs $\mathbf x_i,\mathbf x_i'\in\RR^{14}$.
+  \item 7 sushi features: style, major, minor, oily, eating frequency,
+    price, and selling frequency.
+  \item 7 taster/person features: Sushi gender, age, time, birthplace
+    and current home (we converted Japanese prefecture codes to
+    latitude/longitude coordinates).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sushi data are harder,\\
+    but SVMcompare still has lowest test error}
+  \begin{minipage}{1.0\linewidth}
+    \hskip -1cm
+      \input{figure-sushi}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}
   \frametitle{Conclusions and future work}
   \begin{itemize}
   \item Learned a ranking function $r(\mathbf x)\in\RR$, and
