@@ -123,11 +123,10 @@ I\left[ y_i \neq c(\mathbf x_i,\mathbf x_i') \right]$$
           \minimize_{\mathbf w\in\RR^p}\ \  & \mathbf w^\intercal \mathbf w \\
           \text{subject to}\ \  & 
           \mathbf w^\intercal(\mathbf x_i'-\mathbf x_i)y_i \geq 1,
-          \ \forall i\in \mathcal I_1\cup \mathcal I_{-1}.
+          \ \forall i\text{ such that }y_i\in\{-1,1\}.
     \end{aligned}
   \end{equation*}
   \input{figure-max-margin-bothsides-svmrank}
-Note: $y_i=0$ equality pairs are not used!
 \end{frame}
 
 \section{Learning a max-margin comparison function}
