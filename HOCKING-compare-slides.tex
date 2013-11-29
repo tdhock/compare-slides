@@ -40,6 +40,29 @@ joint work with Supaporn Spanurattana and Masashi Sugiyama
 \section{Introduction and related work}
 
 \begin{frame}
+  \frametitle{Learning a comparison function}
+  We are given $n$ training pairs $(\mathbf x_i,\mathbf x_i',y_i)$ where we have
+  \begin{itemize}
+  \item Input: a pair of feature vectors $\mathbf x_i,\mathbf x_i'\in\RR^p$
+  \item Output: a label $y_i=
+  \begin{cases}
+    -1 & \text{ if $\mathbf x_i$ is better}\\
+    0 & \text{ if $\mathbf x_i$ is as good as $\mathbf x'_i$}\\
+    1 & \text{ if $\mathbf x'_i$ is better}.
+  \end{cases}
+$
+  \end{itemize}
+  Goal: find a comparison function
+  $c:\RR^p\times\RR^p\rightarrow\{-1,0,1\}$
+\begin{itemize}
+\item Good prediction with respect to the zero-one loss:
+$$\minimize_c \sum_{i\in\text{test}} 
+I\left[ y_i \neq c(\mathbf x_i,\mathbf x_i') \right]$$
+\item Symmetry: $c(\mathbf x,\mathbf x') = -c(\mathbf x',\mathbf x)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Related work: reject, rank, and rate}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|c|c|c|}\hline
@@ -62,29 +85,6 @@ joint work with Supaporn Spanurattana and Masashi Sugiyama
 \end{frame}
 
 \section{Learning a max-margin comparison function}
-
-\begin{frame}
-  \frametitle{Learning a comparison function}
-  We are given $n$ training pairs $(\mathbf x_i,\mathbf x_i',y_i)$ where we have
-  \begin{itemize}
-  \item Input: a pair of feature vectors $\mathbf x_i,\mathbf x_i'\in\RR^p$
-  \item Output: a label $y_i=
-  \begin{cases}
-    -1 & \text{ if $\mathbf x_i$ is better}\\
-    0 & \text{ if $\mathbf x_i$ is as good as $\mathbf x'_i$}\\
-    1 & \text{ if $\mathbf x'_i$ is better}.
-  \end{cases}
-$
-  \end{itemize}
-  Goal: find a comparison function
-  $c:\RR^p\times\RR^p\rightarrow\{-1,0,1\}$
-\begin{itemize}
-\item Good prediction with respect to the zero-one loss:
-$$\minimize_c \sum_{i\in\text{test}} 
-I\left[ y_i \neq c(\mathbf x_i,\mathbf x_i') \right]$$
-\item Symmetry: $c(\mathbf x,\mathbf x') = -c(\mathbf x',\mathbf x)$.
-\end{itemize}
-\end{frame}
 
 \begin{frame}
   \frametitle{Learning to rank and compare}
@@ -141,7 +141,16 @@ Note: $y_i=0$ equality pairs are not used!
 \section{Results and conclusions}
 
 \begin{frame}
-  \frametitle{Simulation setup}
+  \frametitle{Simulation: true patterns $r$ and noisy training pairs}
+  \begin{minipage}{1.0\linewidth}
+    \hskip -0.5cm \input{figure-truth-train} Validation and test data
+    have the same number of pairs $n$ and the same proportion of
+    equality pairs $\rho$.
+  \end{minipage}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Details of simulation setup}
   \begin{itemize}
     \item Inputs $\mathbf x_i,\mathbf x_i'\in[-3,3]^2$.
     \item True ranking function $r(\mathbf x)=||\mathbf x||^2_j$ 
@@ -172,15 +181,6 @@ set:
 \end{itemize}
 \item Select the model with minimal zero-one loss on the validation set.
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{True patterns $r$ and training pairs}
-  \begin{minipage}{1.0\linewidth}
-    \hskip -0.5cm \input{figure-truth-train} Validation and test data
-    have the same number of pairs $n$ and the same proportion of
-    equality pairs $\rho$.
-  \end{minipage}
 \end{frame}
 
 \begin{frame}
@@ -302,10 +302,13 @@ Input:    & $|\mathcal I_0|$ %$\tilde y_i= -1$
 \begin{frame}
   \frametitle{Conclusions and future work}
   \begin{itemize}
-  \item Learned a ranking function $r(\mathbf x)\in\RR$, and
+  \item Learned a nonlinear ranking function $r(\mathbf x)\in\RR$, and
   \item a comparison function $c(\mathbf x, \mathbf x')\in\{-1,0,1\}$.
-  \item Directly learning from $y_i=0$ equality pairs is important!
-  \item Scaling to large data?
+  \item Results: rank $<$ rank2 $<$ compare.
+  \item Directly learning from $y_i=0$ equality pairs is important,\\
+    when they are present!
+  \item \url{https://github.com/tdhock/rankSVMcompare}
+  \item Scaling to large data? Stochastic gradient methods?
   \end{itemize}
 \end{frame}
 
