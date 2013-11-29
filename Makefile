@@ -1,6 +1,10 @@
-HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex figure-sushi.tex figure-truth-train.tex
+HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex figure-sushi.tex figure-truth-train.tex figure-max-margin-bothsides-svmrank.tex
 	rm -f *.aux *.bbl
 	pdflatex HOCKING-compare-slides
+figure-max-margin-bothsides-svmrank.tex: figure-svmrank.R tikz.R linear.pairs.RData
+	R --no-save < $<
+linear.pairs.RData: linear.pairs.R
+	R --no-save < $<
 figure-truth-train.tex: figure-truth-train.R tikz.R colors.R simulation.samples.RData
 	R --no-save < $<
 proportion-level-curves.tex: figure-proportion-level-curves.R tikz.R colors.R simulation.proportion.RData proportion-level-curves-template.tex

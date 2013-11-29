@@ -54,9 +54,10 @@ can you tell me which one is better,\\
 
 \begin{frame}
   \frametitle{Learning a comparison function}
-  We are given $n$ training pairs $(\mathbf x_i,\mathbf x_i',y_i)$ where we have
+  We are given $n$ training pairs $(\mathbf x_i,\mathbf x_i',y_i)$ 
   \begin{itemize}
-  \item Input: a pair of feature vectors $\mathbf x_i,\mathbf x_i'\in\RR^p$
+  \item Input: a pair of feature vectors $\mathbf x_i,\mathbf x_i'\in\RR^p$\\
+    e.g. sushi fattiness, taster birthplace.
   \item Output: a label $y_i=
   \begin{cases}
     -1 & \text{ if $\mathbf x_i$ is better}\\
@@ -97,6 +98,20 @@ I\left[ y_i \neq c(\mathbf x_i,\mathbf x_i') \right]$$
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{SVMrank is a quadratic program (QP)}
+  \begin{equation*}
+    \begin{aligned}
+          \minimize_{\mathbf w\in\RR^p}\ \  & \mathbf w^\intercal \mathbf w \\
+          \text{subject to}\ \  & 
+          \mathbf w^\intercal(\mathbf x_i'-\mathbf x_i)y_i \geq 1,
+          \ \forall i\in \mathcal I_1\cup \mathcal I_{-1}.
+    \end{aligned}
+  \end{equation*}
+  \input{figure-max-margin-bothsides-svmrank}
+Note: $y_i=0$ equality pairs are not used!
+\end{frame}
+
 \section{Learning a max-margin comparison function}
 
 \begin{frame}
@@ -135,20 +150,6 @@ I\left[ y_i\neq c_\tau(\mathbf x_i, \mathbf x_i') \right].$$
   \end{aligned}
 \end{equation*}
 Note: if the optimal $\mu>0$ then the data are separable.
-\end{frame}
-
-\begin{frame}
-  \frametitle{SVMrank is a quadratic program (QP)}
-  \begin{equation*}
-    \begin{aligned}
-          \minimize_{\mathbf w\in\RR^p}\ \  & \mathbf w^\intercal \mathbf w \\
-          \text{subject to}\ \  & 
-          \mathbf w^\intercal(\mathbf x_i'-\mathbf x_i)y_i \geq 1,
-          \ \forall i\in \mathcal I_1\cup \mathcal I_{-1}.
-    \end{aligned}
-  \end{equation*}
-  %\input{figure-max-margin-bothsides-svmrank}
-Note: $y_i=0$ equality pairs are not used!
 \end{frame}
 
 \section{Results and conclusions}
