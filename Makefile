@@ -1,4 +1,4 @@
-HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex figure-sushi.tex figure-truth-train.tex figure-max-margin-bothsides-svmrank.tex figure-norm-data.tex
+HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex figure-sushi.tex figure-truth-train.tex figure-max-margin-bothsides-svmrank.tex figure-norm-data.tex figure-hard-margin.tex
 	rm -f *.aux *.bbl
 	pdflatex HOCKING-compare-slides
 figure-max-margin-bothsides-svmrank.tex: figure-svmrank.R tikz.R linear.pairs.RData
