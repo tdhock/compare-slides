@@ -153,17 +153,17 @@ I\left[ y_i\neq c_\tau(\mathbf x_i, \mathbf x_i') \right].$$
 
 \begin{frame}
   \frametitle{Max margin comparison is a linear program (LP)}
-  For $y\in\{-1,0,1\}$, let $\mathcal I_y=\{i\mid y_i=y\}$ be the
-  corresponding training indices.
+  \input{figure-max-margin-bothsides-lines}
+  \vskip -2.2cm
   \begin{equation*}
   \begin{aligned}
     \maximize_{\mu\in\RR, \mathbf w\in\RR^p}\ & \mu \\
     \text{subject to}\ & 
     \mu \leq 1-|\mathbf w^\intercal (\mathbf x_i' - \mathbf x_i)|,\
-    \forall\  i\in \mathcal I_0\\
+    \forall\  i\text{ such that }y_i=0,\\
     &\mu \leq -1 +  
     \mathbf w^\intercal(\mathbf x_i'-\mathbf x_i)y_i,
-    \ \forall\ i\in \mathcal I_1\cup \mathcal I_{-1}.
+    \ \forall\ i\text{ such that }y_i\in\{-1,1\}.
   \end{aligned}
 \end{equation*}
 Note: if the optimal $\mu>0$ then the data are separable.

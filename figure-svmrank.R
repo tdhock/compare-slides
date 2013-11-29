@@ -66,7 +66,9 @@ for(pair.name in names(linear.pairs)){
     scale_size_manual(values=c(active=1,inactive=1), guide="none")+
     scale_colour_manual(legend.title,values=yi.colors)+
     ylim(-1.55, 1.5)+
-    xlim(-300,300)
+    xlim(-300,300)+
+      xlab("difference feature 1")+
+        ylab("difference feature 2")
   pre <- sprintf("figure-max-margin-%s-", pair.name)
   tikz(paste0(pre,"points.tex"),h=3,w=4.8)
   print(dots)
@@ -98,7 +100,7 @@ for(pair.name in names(linear.pairs)){
               data=lab.df, size=3)
   print(p)
 
-  tikz(paste0(pre,"lines.tex"),h=3,w=4.8)
+  tikz(paste0(pre,"lines.tex"),h=2.6,w=4.8)
   print(p)
   dev.off()
 
