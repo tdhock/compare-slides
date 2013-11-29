@@ -69,6 +69,27 @@ percents$label <- makelabel(percents$norm)
 err$label <- makelabel(err$norm)
 indicator <- data.frame(N=as.integer(Nsamp), label=makelabel(show.norm))
 leg <- "function"
+
+for(this.norm in levels(percents$norm)){
+  norm.percents <- subset(percents, this.norm == norm)
+one <- ggplot(norm.percents, aes(N, mean, group=fit.name))+
+  geom_ribbon(aes(ymin=mean-sd,ymax=mean+sd,fill=fit.name),alpha=1/2)+
+  geom_line(aes(colour=fit.name),lwd=1.5)+
+  theme_bw()+
+  theme(panel.margin=unit(0,"cm"),
+        panel.grid=element_blank())+
+  scale_colour_manual(leg,values=model.colors)+
+  scale_fill_manual(leg,values=model.colors)+
+  ylab("percent incorrectly\npredicted test pairs")+
+  xlab("number of labeled pairs, half equality and half inequality")+
+  ggtitle(norm.percents$label[1])
+  out <- sprintf("figure-simulation-samples-%s.tex", this.norm)
+  tikz(out,h=3, w=5)
+  print(one)
+  dev.off()
+}
+  
+
 boring <- ggplot(percents, aes(N, mean, group=fit.name))+
   geom_ribbon(aes(ymin=mean-sd,ymax=mean+sd,fill=fit.name),alpha=1/2)+
   geom_line(aes(colour=fit.name),lwd=1.5)+
