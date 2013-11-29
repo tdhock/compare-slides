@@ -118,6 +118,7 @@ I\left[ y_i \neq c(\mathbf x_i,\mathbf x_i') \right]$$
 
 \begin{frame}
   \frametitle{SVMrank ignores equality $y_i=0$ pairs}
+  Linear $r(\mathbf x) = \mathbf w^\intercal \mathbf x$.
   \begin{equation*}
     \begin{aligned}
           \minimize_{\mathbf w\in\RR^p}\ \  & \mathbf w^\intercal \mathbf w \\
@@ -154,6 +155,24 @@ I\left[ y_i\neq c_\tau(\mathbf x_i, \mathbf x_i') \right].$$
 \begin{frame}
   \frametitle{Max margin comparison is a linear program (LP)}
   \input{figure-max-margin-bothsides-lines}
+  \vskip -2.2cm
+  \begin{equation*}
+  \begin{aligned}
+    \maximize_{\mu\in\RR, \mathbf w\in\RR^p}\ & \mu \\
+    \text{subject to}\ & 
+    \mu \leq 1-|\mathbf w^\intercal (\mathbf x_i' - \mathbf x_i)|,\
+    \forall\  i\text{ such that }y_i=0,\\
+    &\mu \leq -1 +  
+    \mathbf w^\intercal(\mathbf x_i'-\mathbf x_i)y_i,
+    \ \forall\ i\text{ such that }y_i\in\{-1,1\}.
+  \end{aligned}
+\end{equation*}
+Note: if the optimal $\mu>0$ then the data are separable.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Learned function is invariant to training direction}
+  \input{figure-max-margin-oneside-lines}
   \vskip -2.2cm
   \begin{equation*}
   \begin{aligned}

@@ -70,7 +70,7 @@ for(pair.name in names(linear.pairs)){
       xlab("difference feature 1")+
         ylab("difference feature 2")
   pre <- sprintf("figure-max-margin-%s-", pair.name)
-  tikz(paste0(pre,"points.tex"),h=3,w=4.8)
+  tikz(paste0(pre,"points.tex"),h=2.6,w=4.8)
   print(dots)
   dev.off()
 
@@ -87,7 +87,7 @@ for(pair.name in names(linear.pairs)){
                   seg(1,"decision"),
                   seg(-1,"decision"))
   lab.df <- subset(seg.df,line=="decision")
-  lab.df$label <- sprintf("$f(x')-f(x)=%d$",c(1,-1))
+  lab.df$label <- sprintf("$r(\\mathbf x')-r(\\mathbf x)=%d$",c(1,-1))
   lab.df$angle1 <- -1.55
   p <- dots+
     scale_size_manual(values=c(active=2,inactive=1))+
