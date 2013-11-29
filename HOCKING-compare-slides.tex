@@ -40,6 +40,19 @@ joint work with Supaporn Spanurattana and Masashi Sugiyama
 \section{Introduction and related work}
 
 \begin{frame}
+  \frametitle{Motivating example: learning to compare sushi}
+  \includegraphics[width=1in]{sushi_salmon}\makebox[2.5in]{salmon is
+    better than anago}\includegraphics[width=1in]{sushi_anago}
+
+\includegraphics[width=1in]{sushi_chu-toro}\makebox[2.5in]{\alert<2>{chu-toro is
+  as good as kani-miso}}\includegraphics[width=1in]{sushi_kani-miso}
+
+If I give you another sushi pair,\\
+can you tell me which one is better,\\
+\alert<2>{or if they are equally good?}
+\end{frame}
+
+\begin{frame}
   \frametitle{Learning a comparison function}
   We are given $n$ training pairs $(\mathbf x_i,\mathbf x_i',y_i)$ where we have
   \begin{itemize}
