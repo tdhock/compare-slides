@@ -59,8 +59,10 @@ p <- ggplot()+
   theme(panel.margin=unit(0,"cm"),
         panel.grid=element_blank())+
   coord_equal()+
-  facet_grid(what ~ tex)
+  facet_grid(what ~ tex)+
+  scale_colour_manual(values=pair.colors)+
+  guides(colour=guide_legend(keyheight=2))
 
-tikz("figure-truth-train.tex", w=5, h=3)
+tikz("figure-truth-train.tex", w=5, h=2.6)
 print(p)
 dev.off()

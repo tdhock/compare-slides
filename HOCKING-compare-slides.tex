@@ -176,10 +176,65 @@ set:
 
 \begin{frame}
   \frametitle{True patterns $r$ and training pairs}
-  \input{figure-truth-train}
+  \begin{minipage}{1.0\linewidth}
+    \hskip -0.5cm \input{figure-truth-train} Validation and test data
+    have the same number of pairs $n$ and the same proportion of
+    equality pairs $\rho$.
+  \end{minipage}
 \end{frame}
 
-\input{sample-level-curves}
+\begin{frame}
+  \frametitle{We ran 3 different algorithms on each data set}
+  \begin{center}
+        \begin{tabular}{r|cc|cc|c|}
+&    \multicolumn{2}{c|}{equality pairs}
+&    \multicolumn{2}{c|}{inequality pairs}\\
+Input:    & $|\mathcal I_0|$ %$\tilde y_i= -1$
+    & --- 
+    & $|\mathcal I_1|+|\mathcal I_{-1}|$ %$\tilde y_i=1$
+    & $\rightarrow$ &
+    code
+    \\
+    \hline
+    rank 
+    & 0 
+    & 
+    & $|\mathcal I_1|+|\mathcal I_{-1}|$ 
+    & $\rightarrow$ &
+    SVMrank
+    \\
+    \hline
+    rank2 
+    & $2|\mathcal I_0|$ 
+    & $\leftarrow \rightarrow$
+    & $2(|\mathcal I_1|+|\mathcal I_{-1}|)$ 
+    & $\rightarrow \rightarrow$ &
+    SVMrank
+    \\
+    \hline
+    compare 
+    & $2|\mathcal I_0|$ 
+    & --- --- 
+    & $|\mathcal I_1|+|\mathcal I_{-1}|$ 
+    & $\rightarrow$ &
+    proposed
+    \\
+    \hline
+  \end{tabular}
+  \end{center}
+  \begin{description}
+  \item[Equality $y_i=0$ pairs] are shown as ---  
+    segments.
+  \item[Inequality $y_i\in\{-1,1\}$ pairs]
+    are shown as $\rightarrow$  arrows.
+  \item[rank] ignores each input equality pair.
+  \item[rank2] converts each input equality pair
+    to two contradictory inequality pairs.
+  \item[compare] directly models the equality pairs.
+  \end{description}
+\end{frame}
+
+%\input{sample-level-curves}
 
 \begin{frame}
   \frametitle{Test error lowest for proposed SVMcompare model}
@@ -197,7 +252,7 @@ set:
   \end{minipage}
 \end{frame}
 
-\input{proportion-level-curves}
+%\input{proportion-level-curves}
 
 \begin{frame}
   \frametitle{No difference for few equality pairs,\\
