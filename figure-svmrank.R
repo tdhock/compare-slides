@@ -9,7 +9,7 @@ yi.colors <- c("0"="#f8756e", #orange
 yi.alpha <- c("0"=1/2,
               "1"=1, 
               "-1"=1)
-legend.title <- "comparison\n$y_i$"
+legend.title <- "label\n$y_i$"
 
 for(pair.name in names(linear.pairs)){
   pairs <- linear.pairs[[pair.name]]
@@ -134,7 +134,7 @@ for(pair.name in names(linear.pairs)){
                   seg(-1,"margin"),
                   seg(0,"decision"))
   lab.df <- subset(seg.df,line!="foo")
-  lab.df$label <- sprintf("$f(x')-f(x)=%d$",c(1,-1,0))
+  lab.df$label <- sprintf("$f(\\mathbf x')-f(\\mathbf x)=%d$",c(1,-1,0))
   lab.df$angle1 <- c(-3.5,-3.5, 3.5)
   diff.df <- rbind(data.frame(diff0, yi=yi.vec, constraint),
                    data.frame(diff.all[!not.zero,],yi=0,constraint="inactive"))
@@ -149,7 +149,9 @@ for(pair.name in names(linear.pairs)){
     scale_linetype_manual(values=c(decision="solid",margin="dotted"))+
     geom_text(aes(distance1, angle1, label=label),
               data=lab.df, size=3)+
-    scale_alpha_manual(legend.title,values=yi.alpha)
+    scale_alpha_manual(legend.title,values=yi.alpha)+
+      xlab("difference feature 1")+
+        ylab("difference feature 2")
   
   tikz(paste0(pre,"svmrank.tex"),h=2.8,w=4.8)
   print(ranksvm)
