@@ -42,10 +42,11 @@ joint work with Supaporn Spanurattana and Masashi Sugiyama
 \begin{frame}
   \frametitle{Motivating example: learning to compare sushi}
   \includegraphics[width=1in]{sushi_salmon}\makebox[2.5in]{salmon is
-    better than anago}\includegraphics[width=1in]{sushi_anago}
+    better than eel}\includegraphics[width=1in]{sushi_anago}
 
-\includegraphics[width=1in]{sushi_chu-toro}\makebox[2.5in]{\alert<2>{chu-toro is
-  as good as kani-miso}}\includegraphics[width=1in]{sushi_kani-miso}
+  \includegraphics[width=1in]{sushi_chu-toro}\makebox[2.5in]{\alert<2>{fatty
+      tuna is as good as
+      crab liver}}\includegraphics[width=1in]{sushi_kani-miso}
 
 If I give you another sushi pair,\\
 can you tell me which one is better,\\
@@ -147,9 +148,9 @@ I\left[ y_i \neq c(\mathbf x_i,\mathbf x_i') \right]$$
   \end{cases}
 $
 \end{itemize}
-The problem becomes
-$$\minimize_{r,\tau} \sum_{i=1}^n 
-I\left[ y_i\neq c_\tau(\mathbf x_i, \mathbf x_i') \right].$$
+Fix the threshold $\tau=1$. The problem becomes
+$$\minimize_{r} \sum_{i=1}^n 
+I\left[ y_i\neq c_1(\mathbf x_i, \mathbf x_i') \right].$$
 \end{frame}
 
 \begin{frame}
@@ -189,13 +190,33 @@ Note: if the optimal $\mu>0$ then the data are separable.
 \end{frame}
 
 \begin{frame}
-  \frametitle{LP and binary SVM QP}
-  \begin{minipage}{1.0\linewidth}
-    \hskip -1cm
-      \input{figure-hard-margin}
-  \end{minipage}
-  We can use an SVM solver to learn a ranking function!
+  \frametitle{grey LP lines, black QP lines (unscaled)}
+  
 \end{frame}
+
+\begin{frame}
+  \frametitle{grey LP lines, black QP lines (scaled)}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{grey LP lines, black QP lines (flipped)}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{LP and QP written out on the same slide}
+  
+\end{frame}
+
+% \begin{frame}
+%   \frametitle{LP and binary SVM QP}
+%   \begin{minipage}{1.0\linewidth}
+%     \hskip -1cm
+%       \input{figure-hard-margin}
+%   \end{minipage}
+%   We can use an SVM solver to learn a ranking function!
+% \end{frame}
 
 \section{Results and conclusions}
 
@@ -293,7 +314,7 @@ Input:    & $|\mathcal I_0|$ %$\tilde y_i= -1$
   \end{description}
 \end{frame}
 
-%\input{sample-level-curves}
+\input{sample-level-curves}
 
 \begin{frame}
   \frametitle{Test error lowest for proposed SVMcompare model}
@@ -311,7 +332,7 @@ Input:    & $|\mathcal I_0|$ %$\tilde y_i= -1$
   \end{minipage}
 \end{frame}
 
-%\input{proportion-level-curves}
+\input{proportion-level-curves}
 
 \begin{frame}
   \frametitle{No difference for few equality pairs,\\
@@ -352,6 +373,7 @@ Input:    & $|\mathcal I_0|$ %$\tilde y_i= -1$
 \begin{frame}
   \frametitle{Sushi data are harder,\\
     but SVMcompare still has lowest test error}
+TODO: larger data results.
   \begin{minipage}{1.0\linewidth}
     \hskip -1cm
       \input{figure-sushi}
