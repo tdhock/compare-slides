@@ -1,7 +1,7 @@
-HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex figure-sushi.tex figure-truth-train.tex figure-max-margin-bothsides-svmrank.tex figure-norm-data.tex figure-hard-margin.tex
+HOCKING-compare-slides.pdf: HOCKING-compare-slides.tex figure-auc.tex figure-simulation-samples.tex sample-level-curves.tex proportion-level-curves.tex figure-sushi.tex figure-truth-train.tex figure-max-margin-bothsides-svmrank.tex figure-norm-data.tex figure-hard-margin-both.scaled.tex
 	rm -f *.aux *.bbl
 	pdflatex HOCKING-compare-slides
-figure-max-margin-bothsides-svmrank.tex: figure-svmrank.R tikz.R linear.pairs.RData
+figure-max-margin-bothsides-svmrank.tex: figure-svmrank.R colors.R tikz.R linear.pairs.RData
 	R --no-save < $<
 linear.pairs.RData: linear.pairs.R
 	R --no-save < $<
@@ -11,7 +11,7 @@ proportion-level-curves.tex: figure-proportion-level-curves.R tikz.R colors.R si
 	R --no-save < $<
 figure-norm-data.tex: figure-norm-data.R tikz.R colors.R
 	R --no-save < $<
-figure-hard-margin.tex: figure-hard-margin.R tikz.R colors.R
+figure-hard-margin-both.scaled.tex: figure-hard-margin.R tikz.R colors.R
 	R --no-save < $<
 simulation.samples.RData: simulation.samples.R svmlight.R
 	R --no-save < $<

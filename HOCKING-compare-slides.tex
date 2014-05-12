@@ -16,10 +16,15 @@
 \newcommand{\RR}{\mathbb R}
 \newcommand{\NN}{\mathbb N}
 
+% Set transparency of non-highlighted sections in the table of
+% contents slide.
+\setbeamertemplate{section in toc shaded}[default][100]
 \AtBeginSection[]
 {
+  \setbeamercolor{section in toc}{fg=red} 
+  \setbeamercolor{section in toc shaded}{fg=black} 
   \begin{frame}
-    \tableofcontents
+    \tableofcontents[currentsection]
   \end{frame}
 }
 
@@ -150,12 +155,13 @@ $
 Fix the threshold $\tau=1$. The problem becomes
 $$\minimize_{r} \sum_{i=1}^n 
 I\left[ y_i\neq c_1(\mathbf x_i, \mathbf x_i') \right].$$
+If there are several $r$ that achieve 0 error, \\
+then the data are separable.
 \end{frame}
 
 \begin{frame}
-  \frametitle{Max margin comparison is a linear program (LP)}
-  \input{figure-max-margin-bothsides-lines}
-  \vskip -2.2cm
+  \frametitle{Max margin LP for separable data}
+  \underline{Linear Program (LP) measures ranking function values:}
   \begin{equation*}
   \begin{aligned}
     \maximize_{\mu\in\RR, \mathbf w\in\RR^p}\ & \mu \\
@@ -167,13 +173,104 @@ I\left[ y_i\neq c_1(\mathbf x_i, \mathbf x_i') \right].$$
     \ \forall\ i\text{ such that }y_i\in\{-1,1\}.
   \end{aligned}
 \end{equation*}
-Note: if the optimal $\mu>0$ then the data are separable.
+\begin{itemize}
+\item If the optimal margin $\mu>0$ then the data are separable.
+\item Ranking function $r(\mathbf x) = \mathbf w^\intercal \mathbf x$.
+\item Comparison function $c_1(\mathbf x, \mathbf x')$.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Learned function is invariant to training direction}
-  \input{figure-max-margin-oneside-lines}
-  \vskip -2.2cm
+  \frametitle{Geometric interpretation of max margin LP}
+  \input{figure-hard-margin-one}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Equivalent: $(\mathbf x_i, \mathbf x_i', y_i=-1)$ flipped to $(\mathbf x_i', \mathbf x_i, \tilde y_i=1)$}
+  \input{figure-hard-margin-flipneg}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Max margin SVM QP for separable data}
+  \underline{Change of variables \alert<2>{``flipped data''}}
+  \begin{equation*}
+\label{eq:tilde}
+\mathbf{  \tilde X} = \left[
+    \begin{array}{c}
+      \mathbf X_1 \\
+      \alert<2>{\mathbf X_{-1}'}\\
+      \mathbf X_0\\
+      \alert<2>{\mathbf X_0'}
+    \end{array}
+  \right],\ 
+  \mathbf{\tilde X'} = \left[
+    \begin{array}{c}
+      \mathbf X_1' \\
+      \alert<2>{\mathbf X_{-1}}\\
+      \mathbf X_0'\\
+      \alert<2>{\mathbf X_0}
+    \end{array}
+  \right],\ 
+  \mathbf{\tilde y} = \left[
+    \begin{array}{c}
+      \mathbf 1_{|\mathcal I_1|} \\
+      \alert<2>{\mathbf 1_{|\mathcal I_{-1}|}}\\
+      \mathbf{-1}_{|\mathcal I_0|}\\
+      \alert<2>{\mathbf{-1}_{|\mathcal I_0|}}
+    \end{array}
+  \right],
+\end{equation*}
+\vskip -0.5cm
+\begin{itemize}
+\item  $\tilde y_i=-1$ implies no significant
+difference between $\mathbf{\tilde x}_i$ and $\mathbf{\tilde x}_i'$,
+\item  $\tilde y_i=1$ implies that $\mathbf{\tilde x}_i'$ is better than
+$\mathbf{\tilde x}_i$.
+\end{itemize}
+  \underline{Quadratic Program measures weight vector size (SVM QP)}
+\begin{eqnarray*}
+  \label{eq:max-margin-qp-tilde}
+  \minimize_{\mathbf u\in\RR^p, \beta\in\RR}\ &&\hskip -0.5cm
+  \mathbf u^\intercal \mathbf u  \\
+\nonumber    \text{subject to}\ &&\hskip -0.5cm 
+    \tilde y_i (\beta + 
+    \mathbf u^\intercal( \mathbf{\tilde x}_i'-\mathbf{\tilde x}_i) ) \geq 1,
+    \ \forall i\in\{1,\dots,m\}.
+\end{eqnarray*}
+Same as SVM: learn affine function $f(\mathbf x)=\beta+\mathbf
+u^\intercal \mathbf x$.\\
+\textbf{Lemma:} $\hat{\mu} = -1/\beta$,
+$\hat{ \mathbf{w}} = -\mathbf{u}/\beta$ are feasible for the LP.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Equivalent: $(\mathbf x_i, \mathbf x_i', y_i=-1)$ flipped to $(\mathbf x_i', \mathbf x_i, \tilde y_i=1)$}
+  \input{figure-hard-margin-flipneg}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QP sensitive to feature scale}
+  \input{figure-hard-margin-flipneg-qp}
+\end{frame}
+
+\begin{frame}
+  \frametitle{$(\mathbf x_i, \mathbf x_i', y_i=0)$ flipped to
+    $(\mathbf x_i, \mathbf x_i', \tilde y_i=-1)$
+}
+  \input{figure-hard-margin-flipneg.scaled-qp}
+\end{frame}
+
+\begin{frame}
+  \frametitle{$(\mathbf x_i, \mathbf x_i', y_i=0)$ flipped to
+    $(\mathbf x_i, \mathbf x_i', \tilde y_i=-1)$,
+    $(\mathbf x_i', \mathbf x_i, \tilde y_i=-1)$
+}
+  \input{figure-hard-margin-both.scaled-qp}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Max margin LP and QP for separable data}
+  \underline{Linear Program (LP) measures function values:}
   \begin{equation*}
   \begin{aligned}
     \maximize_{\mu\in\RR, \mathbf w\in\RR^p}\ & \mu \\
@@ -185,37 +282,27 @@ Note: if the optimal $\mu>0$ then the data are separable.
     \ \forall\ i\text{ such that }y_i\in\{-1,1\}.
   \end{aligned}
 \end{equation*}
-Note: if the optimal $\mu>0$ then the data are separable.
+\vskip 0.5cm
+  \underline{Quadratic Program (QP) measures weight vector size:}
+\begin{eqnarray*}
+  \label{eq:max-margin-qp-tilde}
+  \minimize_{\mathbf u\in\RR^p, \beta\in\RR}\ &&\hskip -0.5cm
+  \mathbf u^\intercal \mathbf u  \\
+\nonumber    \text{subject to}\ &&\hskip -0.5cm 
+    \tilde y_i (\beta + 
+    \mathbf u^\intercal( \mathbf{\tilde x}_i'-\mathbf{\tilde x}_i) ) \geq 1,
+    \ \forall i\in\{1,\dots,m\}.
+\end{eqnarray*}
+\begin{itemize}
+\item 
+\textbf{Lemma:} $\hat{\mu} = -1/\beta$, $\hat{ \mathbf{w}} =
+-\mathbf{u}/\beta$ are feasible for the LP.\\
+\item Ranking functions
+  $r_{\text{LP}}(\mathbf x) = \mathbf w^\intercal \mathbf x$,
+  $r_{\text{QP}}(\mathbf x) = \hat{\mathbf w}^\intercal \mathbf x$.
+\item Comparison function $c_1(\mathbf x, \mathbf x')$.
+\end{itemize}
 \end{frame}
-
-\begin{frame}
-  \frametitle{grey LP lines, black QP lines (unscaled)}
-  
-\end{frame}
-
-\begin{frame}
-  \frametitle{grey LP lines, black QP lines (scaled)}
-  
-\end{frame}
-
-\begin{frame}
-  \frametitle{grey LP lines, black QP lines (flipped)}
-  
-\end{frame}
-
-\begin{frame}
-  \frametitle{LP and QP written out on the same slide}
-  
-\end{frame}
-
-% \begin{frame}
-%   \frametitle{LP and binary SVM QP}
-%   \begin{minipage}{1.0\linewidth}
-%     \hskip -1cm
-%       \input{figure-hard-margin}
-%   \end{minipage}
-%   We can use an SVM solver to learn a ranking function!
-% \end{frame}
 
 \section{Results and conclusions}
 
