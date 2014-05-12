@@ -5,7 +5,7 @@ library(grid)
 source("tikz.R")
 source("colors.R")
 
-load("sushi.roc.RData")
+load("sushi.proportion.RData")
 load("sushi.samples.RData")
 
 sushi.err <- sushi.samples$error
@@ -31,7 +31,7 @@ test.dl <- test.err+
             data=data.frame(N=800, fit.name=c("rank", "rank2", "compare"),
               mean=c(47, 39.5, 35)))
 
-auc <- sushi.roc$auc
+auc <- subset(sushi.proportion$error, set=="test")
 auc.stats <- ddply(auc, .(prop, fit.name), summarize,
                    mean=mean(auc), sd=sd(auc))
 auc.plot <- ggplot(auc.stats, aes(prop, mean))+
@@ -42,7 +42,8 @@ auc.plot <- ggplot(auc.stats, aes(prop, mean))+
   scale_fill_manual(leg,values=model.colors)+
   ggtitle("Test AUC")+
   theme(legend.position="none")+
-  ylab("Area under ROC curve")+
+  scale_y_continuous("Area under ROC curve",
+                     limits=c(0.5, 1))+
   scale_x_continuous("$\\rho =$ proportion of\nequality $y_i=0$ pairs",
                      breaks=seq(0,1,by=0.2))
 
