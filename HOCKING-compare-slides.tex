@@ -34,10 +34,10 @@
 \author{
 Toby Dylan Hocking\\
 toby.hocking@mail.mcgill.ca\\
-joint work with Supaporn Spanurattana and Masashi Sugiyama
+joint work with David Venuto,  Lakjaree Sphanurattana, and Masashi Sugiyama
 }
 
-\date{27 June 2014}
+\date{2 March 2018}
 
 \maketitle
 
@@ -100,18 +100,15 @@ I\left[ y_i \neq c(\mathbf x_i,\mathbf x_i') \right]$$
 \end{frame}
 
 \begin{frame}
-  \frametitle{Related work: reject, rank, and rate}
+  \frametitle{Related work: rank and rate}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|c|c|c|}\hline
   \backslashbox{Outputs}{Inputs}
   &single items $\mathbf x$&pairs of items $\mathbf x,\mathbf x'$\\ \hline
   $y\in\{-1,1\}$ &SVM  & SVMrank   	\\ \hline 
-  $y\in\{-1,0,1\}$ &Reject option& this work\\ \hline
+  $y\in\{-1,0,1\}$ && this work\\ \hline
 \end{tabular}
 \begin{itemize}
-\item PL Bartlett and MH Wegkamp. Classification with a reject
-  option using a hinge loss. JMLR, 9:1823--1840, 2008. (statistical
-  properties of the hinge loss)
 \item T Joachims. Optimizing search engines using clickthrough
   data. KDD 2002. (SVMrank)
 \item K Zhou \emph{et al.} Learning to rank with ties. SIGIR
@@ -466,15 +463,38 @@ Input:    & $|\mathcal I_0|$ %$\tilde y_i= -1$
 \end{frame}
 
 \begin{frame}
+  \frametitle{Chess data description}
+  \begin{itemize}
+  \item \url{http://www.chessmetrics.com}, 1999--2006 (eight years).
+  \item For each year, train on first four months (Jan--Apr), test on
+    other months (May--Dec).
+  \item 44.7\% draws ($y_i=0$) -- predicting them is important!
+  \item 16 features computed for each player and game: ELO score,
+    Glicko score, initial move, loss/wins to a lower/higher ranked
+    player, the average score difference of opponents,
+    win/loss/draw/games played raw values and percentages, etc.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Chess data result}
+  \begin{minipage}{1.0\linewidth}
+    \hskip -1cm
+      \input{chess_fig}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}
   \frametitle{Conclusions and future work}
   \begin{itemize}
   \item Learned a nonlinear ranking function $r(\mathbf x)\in\RR$, and
   \item a comparison function $c(\mathbf x, \mathbf x')\in\{-1,0,1\}$.
-  \item Results: rank $<$ rank2 $<$ compare.
-  \item Directly learning from $y_i=0$ equality pairs is important,\\
+  \item Results in simulation/sushi: rank $<$ rank2 $<$ compare.
+  \item Results in chess: linear SVM improves over ELO/Glicko.
+  \item Directly learning from $y_i=0$ equality pairs (draws) is important,\\
     when they are present!
   \item \url{https://github.com/tdhock/rankSVMcompare}
-  \item Scaling to large data? Stochastic gradient methods?
+  \item Future work: algorithms for large data and online setting.
   \end{itemize}
 \end{frame}
 
