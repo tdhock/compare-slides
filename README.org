@@ -1,8 +1,9 @@
 This repo contains source code to make figures and slides that explain
 Support Vector Comparison machines, 
 
-- [[file:HOCKING-compare-slides.pdf]] is the compiled slides PDF.
-- [[file:Makefile]] contains all the instructions for making the figures.
+- [[https://github.com/tdhock/compare-slides/raw/master/HOCKING-compare-slides.pdf]]
+  is the compiled slides PDF.
+- [[file:Makefile]] contains all the instructions for making the figures/slides.
 
 ** Related work
 
